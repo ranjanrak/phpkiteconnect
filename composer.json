@@ -1,5 +1,5 @@
 {
-    "name": "zerodha/phpkiteconnect",
+    "name": "rakesh/phpkiteconnect",
     "description": "The PHP client library for the Kite Connect trading APIs Resources",
     "type": "library",
     "keywords": [
