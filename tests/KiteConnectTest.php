@@ -218,7 +218,7 @@ class KiteConnectTest extends TestCase
             "product" => "NRML"
         ]);
 
-        $this->assertObjectHasAttribute('order_id',$response);
+        $this->assertArrayHasKey('order_id',$response);
 
     }
 
@@ -281,10 +281,10 @@ class KiteConnectTest extends TestCase
         $response = $kiteConnect->getTrades();
 
         foreach ($response as $values) {
-            $this->assertObjectHasAttribute('trade_id',$values);
-            $this->assertObjectHasAttribute('exchange_order_id',$values);
-            $this->assertObjectHasAttribute('order_id',$values);
-            $this->assertObjectHasAttribute('instrument_token',$values);
+            $this->assertArrayHasKey('trade_id',$values);
+            $this->assertArrayHasKey('exchange_order_id',$values);
+            $this->assertArrayHasKey('order_id',$values);
+            $this->assertArrayHasKey('instrument_token',$values);
         }
 
     }
@@ -315,7 +315,7 @@ class KiteConnectTest extends TestCase
                 "price" => 400
                 ])]);
 
-        $this->assertObjectHasAttribute('trigger_id',$response);
+        $this->assertArrayHasKey('trigger_id',$response);
     }
 
     /** 
@@ -327,10 +327,10 @@ class KiteConnectTest extends TestCase
         $response = $kiteConnect->getGTTs();
 
         foreach ($response as $values) {
-            $this->assertObjectHasAttribute('id',$values);
-            $this->assertObjectHasAttribute('created_at',$values);
-            $this->assertObjectHasAttribute('status',$values);
-            $this->assertObjectHasAttribute('condition',$values);
+            $this->assertArrayHasKey('id',$values);
+            $this->assertArrayHasKey('created_at',$values);
+            $this->assertArrayHasKey('status',$values);
+            $this->assertArrayHasKey('condition',$values);
         }
 
     }
@@ -420,10 +420,10 @@ class KiteConnectTest extends TestCase
         $response = $kiteConnect->getMFOrders();
 
         foreach ($response as $values) {
-            $this->assertObjectHasAttribute('order_id',$values);
-            $this->assertObjectHasAttribute('tradingsymbol',$values);
-            $this->assertObjectHasAttribute('purchase_type',$values);
-            $this->assertObjectHasAttribute('fund',$values);
+            $this->assertArrayHasKey('order_id',$values);
+            $this->assertArrayHasKey('tradingsymbol',$values);
+            $this->assertArrayHasKey('purchase_type',$values);
+            $this->assertArrayHasKey('fund',$values);
         }
 
     }
@@ -436,10 +436,10 @@ class KiteConnectTest extends TestCase
     {
         $response = $kiteConnect->getMFOrders('123456789');
 
-        $this->assertObjectHasAttribute('order_id',$response);
-        $this->assertObjectHasAttribute('fund',$response);
-        $this->assertObjectHasAttribute('order_timestamp',$response);
-        $this->assertObjectHasAttribute('amount',$response);
+        $this->assertArrayHasKey('order_id',$response);
+        $this->assertArrayHasKey('fund',$response);
+        $this->assertArrayHasKey('order_timestamp',$response);
+        $this->assertArrayHasKey('amount',$response);
     }
 
     /** 
@@ -451,10 +451,10 @@ class KiteConnectTest extends TestCase
         $response = $kiteConnect->getMFSIPS();
 
         foreach ($response as $values) {
-            $this->assertObjectHasAttribute('sip_id',$values);
-            $this->assertObjectHasAttribute('fund',$values);
-            $this->assertObjectHasAttribute('instalment_amount',$values);
-            $this->assertObjectHasAttribute('dividend_type',$values);
+            $this->assertArrayHasKey('sip_id',$values);
+            $this->assertArrayHasKey('fund',$values);
+            $this->assertArrayHasKey('instalment_amount',$values);
+            $this->assertArrayHasKey('dividend_type',$values);
         }
     }
 
@@ -466,10 +466,10 @@ class KiteConnectTest extends TestCase
     {
         $response = $kiteConnect->getMFSIPS('123456789');
 
-        $this->assertObjectHasAttribute('sip_id',$response);
-        $this->assertObjectHasAttribute('last_instalment',$response);
-        $this->assertObjectHasAttribute('pending_instalments',$response);
-        $this->assertObjectHasAttribute('instalment_date',$response);
+        $this->assertArrayHasKey('sip_id',$response);
+        $this->assertArrayHasKey('last_instalment',$response);
+        $this->assertArrayHasKey('pending_instalments',$response);
+        $this->assertArrayHasKey('instalment_date',$response);
     }
 
     /** 
