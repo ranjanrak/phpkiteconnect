@@ -676,7 +676,7 @@ class KiteConnect
     /**
      * Retrieves list of available instruments for a auction session.
      *
-     * @return array
+     * @return mixed
      * @throws DataException
      * @throws GeneralException
      * @throws InputException
@@ -685,7 +685,7 @@ class KiteConnect
      * @throws PermissionException
      * @throws TokenException
      */
-    public function getAuctionInstruments(): array
+    public function getAuctionInstruments(): mixed
     {
         return $this->get("portfolio.holdings.auction");
     }
