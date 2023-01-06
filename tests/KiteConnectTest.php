@@ -178,9 +178,9 @@ class KiteConnectTest extends TestCase
         $response = $kiteConnect->getAuctionInstruments();
 
         foreach ($response as $values) {
-            $this->assertObjectHasAttribute('auction_number',$values);
-            $this->assertObjectHasAttribute('instrument_token',$values);
-            $this->assertObjectHasAttribute('tradingsymbol',$values);
+            $this->assertArrayHasKey('auction_number',$values);
+            $this->assertArrayHasKey('instrument_token',$values);
+            $this->assertArrayHasKey('tradingsymbol',$values);
         }
     }
 
