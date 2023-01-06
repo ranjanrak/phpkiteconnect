@@ -173,14 +173,14 @@ class KiteConnectTest extends TestCase
      * @depends initializeMock
      * @test getAuctionInstruments 
     */
-    public function getAuctionInstruments($kiteConnect): void
+    public function getAuctionInstrumentsTest($kiteConnect): void
     {
         $response = $kiteConnect->getAuctionInstruments();
 
         foreach ($response as $values) {
-            $this->assertObjectHasAttribute('auction_number',$values);
-            $this->assertObjectHasAttribute('instrument_token',$values);
-            $this->assertObjectHasAttribute('tradingsymbol',$values);
+            $this->assertObjectHasAttribute('auction_number',$values -> auction_number);
+            $this->assertObjectHasAttribute('instrument_token',$values -> instrument_token);
+            $this->assertObjectHasAttribute('tradingsymbol',$values -> tradingsymbol);
         }
     }
 
