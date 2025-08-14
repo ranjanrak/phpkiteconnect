@@ -9,7 +9,7 @@ $kite = new KiteConnect("api_key");
 
 // Assuming you have obtained the `request_token`
 // after the auth flow redirect by redirecting the
-// user to $kite->login_url()
+// user to $kite->getLoginURL()
 try {
     $user = $kite->generateSession("request_token", "secret_key");
 
@@ -76,5 +76,42 @@ $place_GTT = $kite->placeGTT([
             ])
 ]);
 echo "Trigger id is ".$place_GTT->trigger_id;
+
+$orderParams = [[
+    "order_id" => "111111111",
+    "exchange" => "NSE",
+    "tradingsymbol" => "SBIN",
+    "transaction_type" => $kite::TRANSACTION_TYPE_BUY,
+    "variety" => $kite::VARIETY_REGULAR,
+    "product" => $kite::PRODUCT_CNC,
+    "order_type" => $kite::ORDER_TYPE_MARKET,
+    "quantity" => 1,
+    "average_price" => 560
+    ],
+    [
+    "order_id" => "2222222222",
+    "exchange" => "MCX",
+    "tradingsymbol" => "GOLDPETAL23JULFUT",
+    "transaction_type" => $kite::TRANSACTION_TYPE_SELL,
+    "variety" => $kite::VARIETY_REGULAR,
+    "product" => $kite::PRODUCT_NRML,
+    "order_type" => $kite::ORDER_TYPE_LIMIT,
+    "quantity" => 1,
+    "average_price" => 5862
+    ],
+    [
+    "order_id" => "3333333333",
+    "exchange" => "NFO",
+    "tradingsymbol" => "NIFTY2371317900PE",
+    "transaction_type" => $kite::TRANSACTION_TYPE_SELL,
+    "variety" => $kite::VARIETY_REGULAR,
+    "product" => $kite::PRODUCT_NRML,
+    "order_type" => $kite::ORDER_TYPE_LIMIT,
+    "quantity" => 100,
+    "average_price" => 1.5
+    ]
+];
+
+print_r($kite->getVirtualContractNote($orderParams));
 
 ?>

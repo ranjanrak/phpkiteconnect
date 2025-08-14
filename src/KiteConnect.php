@@ -17,7 +17,6 @@ use KiteConnect\Exception\NetworkException;
 use KiteConnect\Exception\OrderException;
 use KiteConnect\Exception\PermissionException;
 use KiteConnect\Exception\TokenException;
-use phpDocumentor\Reflection\Types\Mixed_;
 use stdClass;
 
 /**
@@ -49,7 +48,7 @@ use stdClass;
  * use one instance to manage many users.
  * Hence, in your web application, typically:
  * - You will initialise an instance of the Kite client
- * - Redirect the user to the `login_url()`
+ * - Redirect the user to the `getLoginURL()`
  * - At the redirect url endpoint, obtain the
  * `request_token` from the query parameters
  * - Initialise a new instance of Kite client,
@@ -154,6 +153,7 @@ class KiteConnect
         "order.cancel" => "/orders/{variety}/{order_id}",
         "order.trades" => "/orders/{order_id}/trades",
         "order.margins" => "/margins/orders",
+        "order.contract_note" => "/charges/orders",
 
         "portfolio.positions" => "/portfolio/positions",
         "portfolio.holdings" => "/portfolio/holdings",
@@ -207,6 +207,9 @@ class KiteConnect
 
     /** @var Closure */
     private $sessionHook;
+
+    /** @var \GuzzleHttp\Client|null */
+    private ?\GuzzleHttp\Client $guzzleClient;
 
     /**
      * Initialise a new Kite Connect client instance.
@@ -389,7 +392,7 @@ class KiteConnect
      * @throws PermissionException
      * @throws TokenException
      */
-    public function invalidateRefreshToken(string $refreshToken): Mixed_
+    public function invalidateRefreshToken(string $refreshToken): mixed
     {
         return $this->delete("api.token.invalidate", [
             "refresh_token" => $refreshToken,
@@ -498,7 +501,7 @@ class KiteConnect
      * @throws PermissionException
      * @throws TokenException
      */
-    public function modifyOrder(string $variety, string $orderId, array $params): Mixed_
+    public function modifyOrder(string $variety, string $orderId, array $params): mixed
     {
         $params["variety"] = $variety;
         $params["order_id"] = $orderId;
@@ -608,6 +611,33 @@ class KiteConnect
     public function orderMargins(array $params): array
     {
         return $this->post("order.margins", (array)json_encode($params), 'application/json');
+    }
+
+    /**
+     * Fetch detailed charges order-wise for the order book
+     *
+     * @param array $params Order params to fetch charges detail
+     *              $params string       "order_id"  Unique order ID
+     *              $params string       "exchange" Name of the exchange(eg. NSE, BSE, NFO, CDS, MCX)
+     *              $params string       "tradingsymbol" Trading symbol of the instrument
+     *              $params string       "transaction_type" eg. BUY, SELL
+     *              $params string       "variety" Order variety (regular, amo, bo, co etc.)
+     *              $params string       "product" Margin product to use for the order
+     *              $params string       "order_type" Order type (MARKET, LIMIT etc.)
+     *              $params int          "quantity" Quantity of the order
+     *              $params float        "average_price" Average price at which the order was executed (Note: Should be non-zero).
+     * @return array
+     * @throws DataException
+     * @throws GeneralException
+     * @throws InputException
+     * @throws NetworkException
+     * @throws OrderException
+     * @throws PermissionException
+     * @throws TokenException
+     */
+    public function getVirtualContractNote(array $params): array
+    {
+        return $this->post("order.contract_note", (array)json_encode($params), 'application/json');
     }
 
     /**
@@ -1509,7 +1539,7 @@ class KiteConnect
      * @param array|null $params Array of key=>value request parameters.
      * @return array                    Returns an array with response "headers" and "body".
      */
-    private function guzzle(string $url, string $method, ?array $headers, $params = null, $guzzleClient = null): array
+    private function guzzle(string $url, string $method, ?array $headers, $params = null, ?\GuzzleHttp\Client $guzzleClient = null): array
     {
         // set header to Guzzle http client
         // mock patching isn't allowed in PHP
