@@ -4,6 +4,10 @@
          backupGlobals="false"
          bootstrap="vendor/autoload.php"
          colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         verbose="true"
          processIsolation="false"
          stopOnFailure="false"
 >
